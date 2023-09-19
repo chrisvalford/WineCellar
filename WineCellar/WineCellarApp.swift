@@ -10,7 +10,6 @@ import SwiftUI
 @main
 struct WineCellarApp: App {
 //    let persistenceController = PersistenceController.shared
-
     var body: some Scene {
         WindowGroup {
             MasterView()

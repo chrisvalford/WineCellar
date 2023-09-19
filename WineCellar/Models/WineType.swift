@@ -19,15 +19,15 @@ enum WineType: Int, Identifiable, CaseIterable, CustomStringConvertible {
     var description: String {
         switch self {
         case .white:
-            return "White"
+            return "Blanco"
         case .red:
-            return "Red"
+            return "Tinto"
         case .rose:
             return "Rośe"
         case .sparkling:
             return "Sparling"
         case .cava:
-            return "Cava / Champagne"
+            return "Cava"
         }
     }
 }

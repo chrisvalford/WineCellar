@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct MasterView: View {
-    var appState = AppState()
+    @StateObject var appState = AppState()
     @State private var path: [Route] = []
+    @State private var isShowingFilter = false
+
+    @State var sortOrder: SortOrder = .none
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -21,7 +24,7 @@ struct MasterView: View {
                 }
                 Section("All wines") {
                     ForEach(appState.selectedWines, id:\.self) { wine in
-                        NavigationLink(wine.name, value: Route.wine(wine))
+                        NavigationLink("\(wine.name) (\(wine.year))", value: Route.wine(wine))
                     }
                 }
             }
@@ -39,12 +42,24 @@ struct MasterView: View {
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(value: Route.shoppingCart(appState.user)) {
-                        Image(systemName: "cart")
-                    }
+                Button(action: {
+                    isShowingFilter = true
+                }, label: {
+                    Image(systemName: "eyeglasses")
+                })
+                NavigationLink(value: Route.shoppingCart(appState.user)) {
+                    Image(systemName: "cart")
                 }
             }
+            .sheet(isPresented: $isShowingFilter) {
+                FilterView(sortOrder: $sortOrder)
+            }
+
+            .onChange(of: sortOrder) { newValue in
+                appState.sortBy(sortOrder: newValue)
+            }
+
+            // Deeplink
             .onOpenURL { url in
                 let components = URLComponents(string: url.absoluteString)
                 let searchQuery = components?.queryItems?.first { $0.name == "query" }?.value
@@ -54,20 +69,25 @@ struct MasterView: View {
                 }
                 path.append(.search(query))
             }
-            /*
-             HANDOFF
-             .onContinueUserActivity("com.app.search") { activity in
+
+            // HANDOFF
+             .onContinueUserActivity("digital.marine.winecellar") { activity in
                 guard let query = activity.userInfo?["query"] as? String else {
                     return
                 }
                 path.append(.search(query))
             }
-             */
         }
+//        .onAppear {
+//            sortOrder = appState.sortOrder
+//        }
+
+
     }
 }
 
 struct Welcome_Previews: PreviewProvider {
+
     static var previews: some View {
         MasterView()
     }
