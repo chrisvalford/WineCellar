@@ -9,9 +9,10 @@ import SwiftUI
 
 struct MasterView: View {
     var appState = AppState()
+    @State private var path: [Route] = []
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             List {
                 Section("New wines") {
                     ForEach(appState.newWines, id:\.self) { wine in
@@ -33,6 +34,8 @@ struct MasterView: View {
                     NewWineDetail(wine: wine)
                 case let .shoppingCart(user: user):
                     ShoppingCart(user: user)
+                case let .search(query):
+                    SearchView(query: query)
                 }
             }
             .toolbar {
@@ -42,6 +45,24 @@ struct MasterView: View {
                     }
                 }
             }
+            .onOpenURL { url in
+                let components = URLComponents(string: url.absoluteString)
+                let searchQuery = components?.queryItems?.first { $0.name == "query" }?.value
+
+                guard let query = searchQuery else {
+                    return
+                }
+                path.append(.search(query))
+            }
+            /*
+             HANDOFF
+             .onContinueUserActivity("com.app.search") { activity in
+                guard let query = activity.userInfo?["query"] as? String else {
+                    return
+                }
+                path.append(.search(query))
+            }
+             */
         }
     }
 }

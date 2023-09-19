@@ -25,6 +25,8 @@
 		2FC2A4772ABA019300E7CB90 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC2A4762ABA019300E7CB90 /* User.swift */; };
 		2FC2A4792ABA026C00E7CB90 /* WineDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC2A4782ABA026C00E7CB90 /* WineDetail.swift */; };
 		2FC2A47B2ABA02BC00E7CB90 /* NewWineDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC2A47A2ABA02BC00E7CB90 /* NewWineDetail.swift */; };
+		2FC2A47D2ABA06B300E7CB90 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC2A47C2ABA06B300E7CB90 /* SearchView.swift */; };
+		2FC2A47F2ABA07D400E7CB90 /* NavigationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC2A47E2ABA07D400E7CB90 /* NavigationStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		2FC2A4762ABA019300E7CB90 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2FC2A4782ABA026C00E7CB90 /* WineDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineDetail.swift; sourceTree = "<group>"; };
 		2FC2A47A2ABA02BC00E7CB90 /* NewWineDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWineDetail.swift; sourceTree = "<group>"; };
+		2FC2A47C2ABA06B300E7CB90 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		2FC2A47E2ABA07D400E7CB90 /* NavigationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +161,7 @@
 			children = (
 				2F33B4DA2AB9D76D00F2EB7C /* CoreData */,
 				2F33B4DC2AB9D7B900F2EB7C /* AppState.swift */,
+				2FC2A47E2ABA07D400E7CB90 /* NavigationStore.swift */,
 				2FC2A4742ABA017D00E7CB90 /* NewWine.swift */,
 				2FC2A47A2ABA02BC00E7CB90 /* NewWineDetail.swift */,
 				2FC2A4702ABA013B00E7CB90 /* Route.swift */,
@@ -180,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				2F33B4DE2AB9D83900F2EB7C /* MasterView.swift */,
+				2FC2A47C2ABA06B300E7CB90 /* SearchView.swift */,
 				2FC2A46E2AB9F75300E7CB90 /* ShoppingCart.swift */,
 				2FC2A4782ABA026C00E7CB90 /* WineDetail.swift */,
 			);
@@ -316,6 +322,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FC2A47F2ABA07D400E7CB90 /* NavigationStore.swift in Sources */,
 				2F33B4B32AB9D73800F2EB7C /* Persistence.swift in Sources */,
 				2F33B4DD2AB9D7B900F2EB7C /* AppState.swift in Sources */,
 				2FC2A4732ABA016000E7CB90 /* Wine.swift in Sources */,
@@ -326,6 +333,7 @@
 				2F33B4B62AB9D73800F2EB7C /* WineCellar.xcdatamodeld in Sources */,
 				2F33B4DF2AB9D83900F2EB7C /* MasterView.swift in Sources */,
 				2FC2A4712ABA013B00E7CB90 /* Route.swift in Sources */,
+				2FC2A47D2ABA06B300E7CB90 /* SearchView.swift in Sources */,
 				2F33B4AA2AB9D73500F2EB7C /* WineCellarApp.swift in Sources */,
 				2FC2A46F2AB9F75300E7CB90 /* ShoppingCart.swift in Sources */,
 				2FC2A4772ABA019300E7CB90 /* User.swift in Sources */,

@@ -11,4 +11,5 @@ enum Route: Hashable {
     case wine(Wine)
     case newWine(NewWine)
     case shoppingCart(User)
+    case search(String)
 }
