@@ -10,5 +10,6 @@ import Foundation
 struct Wine: Identifiable, Hashable {
     let name: String
     var year: String
+    var wineType: WineType
     var id: String { return name }
 }
