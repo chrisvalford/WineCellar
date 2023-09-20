@@ -20,7 +20,7 @@ protocol WineModelInterface {
     func fetch(wine: Wine) throws -> Wine?
     func all() throws -> [Wine]
     func update(wine: Wine) throws
-    func fetch(wineType: WineType) throws -> [Wine]
+    func fetch(query: [Int], sortBy: SortOrder) throws -> [Wine]
 }
 
 class WineModel: WineModelInterface {
@@ -70,11 +70,16 @@ class WineModel: WineModelInterface {
         return wines
     }
 
-    func fetch(wineType: WineType) throws -> [Wine] {
+    func fetch(query: [Int], sortBy: SortOrder = .none) throws -> [Wine] {
         var wines: [Wine] = []
         let fetchRequest: NSFetchRequest<CDWine> = CDWine.fetchRequest()
-        fetchRequest.fetchLimit = 1
-        fetchRequest.predicate = NSPredicate(format: "wineType == %@", wineType as! CVarArg)
+        if !query.isEmpty {
+            fetchRequest.predicate = NSPredicate(format: "%@ contains wineType", query)
+        }
+        if sortBy != .none {
+            let sort = NSSortDescriptor(key: sortBy.description.lowercased(), ascending: true)
+            fetchRequest.sortDescriptors = [sort]
+        }
         let objects = try context.fetch(fetchRequest)
         for object in objects {
             wines.append(Wine(name: object.name ?? "",

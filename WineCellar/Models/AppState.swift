@@ -32,21 +32,25 @@ class AppState: ObservableObject {
     }
 
     func filter(by query: [Int], sortedBy: SortOrder) {
-        var results: [Wine] = []
-        if query.isEmpty {
-            results = storedWines
-        } else {
-            results = storedWines.filter({
-                query.contains($0.wineType.rawValue)
-            })
+        do {
+            selectedWines = try wineModel.fetch(query: query, sortBy: sortedBy)
+        } catch {
+            print(error.localizedDescription)
         }
-        if sortedBy == .none {
-            selectedWines = results
-        } else if sortedBy == .name {
-            selectedWines = results.sorted(by: { $0.name < $1.name })
-        } else if sortedBy == .year {
-            selectedWines = results.sorted(by: { $0.year < $1.year })
-        }
+//        if query.isEmpty {
+//            results = storedWines
+//        } else {
+//            results = storedWines.filter({
+//                query.contains($0.wineType.rawValue)
+//            })
+//        }
+//        if sortedBy == .none {
+//            selectedWines = results
+//        } else if sortedBy == .name {
+//            selectedWines = results.sorted(by: { $0.name < $1.name })
+//        } else if sortedBy == .year {
+//            selectedWines = results.sorted(by: { $0.year < $1.year })
+//        }
     }
 }
 
