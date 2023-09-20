@@ -8,7 +8,6 @@
 import SwiftUI
 import CoreData
 
-
 class AppState: ObservableObject {
     let persistenceController = PersistenceController.shared
 //    @Environment(\.managedObjectContext) private var viewContext
@@ -53,16 +52,23 @@ class AppState: ObservableObject {
         selectedWines = storedWines
     }
 
-    func sortBy(sortOrder: SortOrder) {
-        if sortOrder == .none {
-            selectedWines = storedWines
-        } else if sortOrder == .name {
-            selectedWines = storedWines.sorted(by: { $0.name < $1.name })
-        } else if sortOrder == .year {
-            selectedWines = storedWines.sorted(by: { $0.year < $1.year })
+    func filter(by query: [Int], sortedBy: SortOrder) {
+        var results: [Wine] = []
+        if query.isEmpty {
+            results = storedWines
+        } else {
+            results = storedWines.filter({
+                query.contains($0.wineType.rawValue)
+            })
+        }
+        if sortedBy == .none {
+            selectedWines = results
+        } else if sortedBy == .name {
+            selectedWines = results.sorted(by: { $0.name < $1.name })
+        } else if sortedBy == .year {
+            selectedWines = results.sorted(by: { $0.year < $1.year })
         }
     }
-
 }
 
 

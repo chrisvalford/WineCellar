@@ -19,6 +19,28 @@ struct FilterView: View {
     @State private var isCavaSelected = false
 
     @Binding var sortOrder: SortOrder
+    @Binding var query: [Int]
+    var sheetAction: ([Int], SortOrder) -> Void
+
+    func buildQuery() {
+        var query: [Int] = []
+        if isWhiteSelected == true {
+            query.append(WineType.white.rawValue)
+        }
+        if isRedSelected == true {
+            query.append(WineType.red.rawValue)
+        }
+        if isRoseSelected == true {
+            query.append(WineType.rose.rawValue)
+        }
+        if isSparklingSelected == true {
+            query.append(WineType.sparkling.rawValue)
+        }
+        if isCavaSelected == true {
+            query.append(WineType.cava.rawValue)
+        }
+        sheetAction(query, sortOrder)
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -28,6 +50,7 @@ struct FilterView: View {
                         .font(.title)
                     Spacer()
                     Button(action: {
+                        buildQuery()
                         presentationMode.wrappedValue.dismiss()
                     }) {
                         Image(systemName: "xmark.circle")
@@ -56,12 +79,22 @@ struct FilterView: View {
             }
         }
         .padding(.horizontal, 8)
+        .onAppear {
+            isWhiteSelected = query.contains(WineType.white.rawValue)
+            isRedSelected = query.contains(WineType.red.rawValue)
+            isRoseSelected = query.contains(WineType.rose.rawValue)
+            isSparklingSelected = query.contains(WineType.sparkling.rawValue)
+            isCavaSelected = query.contains(WineType.cava.rawValue)
+        }
     }
 }
 
 struct FilterView_Previews: PreviewProvider {
     @State static var sortOrder = SortOrder.year
+    @State static var query: [Int] = []
     static var previews: some View {
-        FilterView(sortOrder: $sortOrder)
+        FilterView(sortOrder: $sortOrder, query: $query) {
+            query, sortOrder in
+        }
     }
 }

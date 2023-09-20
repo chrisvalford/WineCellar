@@ -13,6 +13,7 @@ struct MasterView: View {
     @State private var isShowingFilter = false
 
     @State var sortOrder: SortOrder = .none
+    @State var query: [Int] = []
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -52,11 +53,12 @@ struct MasterView: View {
                 }
             }
             .sheet(isPresented: $isShowingFilter) {
-                FilterView(sortOrder: $sortOrder)
-            }
-
-            .onChange(of: sortOrder) { newValue in
-                appState.sortBy(sortOrder: newValue)
+                FilterView(sortOrder: $sortOrder, query: $query) {
+                    query, sortOrder in
+                    self.query = query
+                    self.sortOrder = sortOrder
+                    appState.filter(by: query, sortedBy: sortOrder)
+                }
             }
 
             // Deeplink
@@ -79,7 +81,7 @@ struct MasterView: View {
             }
         }
 //        .onAppear {
-//            sortOrder = appState.sortOrder
+//            sortOrder = $appState.sortOrder
 //        }
 
 
