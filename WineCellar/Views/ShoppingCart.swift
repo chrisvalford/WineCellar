@@ -9,10 +9,17 @@ import SwiftUI
 
 struct ShoppingCart: View {
 
+    @EnvironmentObject var appState: AppState
+
     let user: User
 
     var body: some View {
-        Text(user.name)
+        VStack {
+            Text(user.name)
+            List(appState.cartItems) { item in
+                Text(item.name)
+            }
+        }
     }
 }
 

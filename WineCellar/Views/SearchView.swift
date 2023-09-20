@@ -10,7 +10,11 @@ import SwiftUI
 struct SearchView: View {
     let query: String
     var body: some View {
-        Text(query)
+        VStack {
+            Text("This will be an online search.")
+            Text("Using query :")
+            Text(query)
+        }
     }
 }
 

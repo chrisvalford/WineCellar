@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct WineDetail: View {
+    @EnvironmentObject var appState: AppState
+
     let wine: Wine
 
     var body: some View {
@@ -16,6 +18,11 @@ struct WineDetail: View {
             HStack {
                 Text("Produced in:")
                 Text(wine.year)
+            }
+            Button(action: {
+                appState.cartItems.append(wine)
+            }) {
+                Text("Add to cart")
             }
         }
         .navigationTitle(wine.name)

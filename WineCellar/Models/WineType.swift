@@ -8,8 +8,9 @@
 import Foundation
 
 enum WineType: Int, Identifiable, CaseIterable, CustomStringConvertible {
-    case white = 0
-    case red = 1
+    case unknown = 0
+    case white = 1
+    case red = 2
     case rose = 3
     case sparkling = 4
     case cava = 5
@@ -18,6 +19,8 @@ enum WineType: Int, Identifiable, CaseIterable, CustomStringConvertible {
 
     var description: String {
         switch self {
+        case .unknown:
+            return "Unknown"
         case .white:
             return "Blanco"
         case .red:

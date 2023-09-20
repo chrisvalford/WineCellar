@@ -20,6 +20,8 @@ class AppState: ObservableObject {
     @Published var showOnboarding = false
     @Published var selectedWines: [Wine] = []
 
+    @Published var cartItems: [Wine] = []
+
     // Replace with a fetch
     var storedWines: [Wine] = [
         Wine(name: "Vino Juan de Jaunes", year: "2021", wineType: .red),

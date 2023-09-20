@@ -21,6 +21,7 @@
 		2F33B4CC2AB9D73800F2EB7C /* WineCellarUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F33B4CB2AB9D73800F2EB7C /* WineCellarUITestsLaunchTests.swift */; };
 		2F33B4DD2AB9D7B900F2EB7C /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F33B4DC2AB9D7B900F2EB7C /* AppState.swift */; };
 		2F33B4DF2AB9D83900F2EB7C /* MasterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F33B4DE2AB9D83900F2EB7C /* MasterView.swift */; };
+		2FAC85DD2ABB091300F41466 /* WineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC85DC2ABB091300F41466 /* WineModel.swift */; };
 		2FC2A46B2AB9E9C800E7CB90 /* WineType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC2A46A2AB9E9C800E7CB90 /* WineType.swift */; };
 		2FC2A46F2AB9F75300E7CB90 /* ShoppingCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC2A46E2AB9F75300E7CB90 /* ShoppingCart.swift */; };
 		2FC2A4712ABA013B00E7CB90 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC2A4702ABA013B00E7CB90 /* Route.swift */; };
@@ -98,6 +99,7 @@
 		2F33B4D82AB9D74D00F2EB7C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2F33B4DC2AB9D7B900F2EB7C /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		2F33B4DE2AB9D83900F2EB7C /* MasterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterView.swift; sourceTree = "<group>"; };
+		2FAC85DC2ABB091300F41466 /* WineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineModel.swift; sourceTree = "<group>"; };
 		2FC2A46A2AB9E9C800E7CB90 /* WineType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineType.swift; sourceTree = "<group>"; };
 		2FC2A46E2AB9F75300E7CB90 /* ShoppingCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCart.swift; sourceTree = "<group>"; };
 		2FC2A4702ABA013B00E7CB90 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 			children = (
 				2F33B4B22AB9D73800F2EB7C /* Persistence.swift */,
 				2F33B4B42AB9D73800F2EB7C /* WineCellar.xcdatamodeld */,
+				2FAC85DC2ABB091300F41466 /* WineModel.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -443,6 +446,7 @@
 				2FC2A46B2AB9E9C800E7CB90 /* WineType.swift in Sources */,
 				2FC2A4792ABA026C00E7CB90 /* WineDetail.swift in Sources */,
 				2F33B4B62AB9D73800F2EB7C /* WineCellar.xcdatamodeld in Sources */,
+				2FAC85DD2ABB091300F41466 /* WineModel.swift in Sources */,
 				2F33B4DF2AB9D83900F2EB7C /* MasterView.swift in Sources */,
 				2F1FD2712ABA332500EB383F /* FilterView.swift in Sources */,
 				2F1FD26F2ABA316B00EB383F /* WineTypePicker.swift in Sources */,
@@ -630,9 +634,11 @@
 				DEVELOPMENT_TEAM = 3G54NEN3F6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -659,9 +665,11 @@
 				DEVELOPMENT_TEAM = 3G54NEN3F6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -80,11 +80,7 @@ struct MasterView: View {
                 path.append(.search(query))
             }
         }
-//        .onAppear {
-//            sortOrder = $appState.sortOrder
-//        }
-
-
+        .environmentObject(appState)
     }
 }
 
