@@ -18,6 +18,7 @@ protocol WineModelInterface {
     func create(wine: Wine) throws
     func delete(wine: Wine) throws
     func fetch(wine: Wine) throws -> Wine?
+    func all() throws -> [Wine]
     func update(wine: Wine) throws
     func fetch(wineType: WineType) throws -> [Wine]
 }
@@ -58,7 +59,15 @@ class WineModel: WineModelInterface {
     }
 
     func all() throws -> [Wine] {
-        return []
+        var wines: [Wine] = []
+        let fetchRequest: NSFetchRequest<CDWine> = CDWine.fetchRequest()
+        let objects = try context.fetch(fetchRequest)
+        for object in objects {
+            wines.append(Wine(name: object.name ?? "",
+                              year: object.year ?? "",
+                              wineType: WineType(rawValue: Int(object.wineType)) ?? .unknown))
+        }
+        return wines
     }
 
     func fetch(wineType: WineType) throws -> [Wine] {
@@ -94,5 +103,48 @@ class WineModel: WineModelInterface {
         fetchRequest.predicate = NSPredicate(format: "name == %@", wine.name)
         let objects = try context.fetch(fetchRequest)
         return objects.first
+    }
+
+    private func haveData() throws -> Bool {
+        let fetchRequest: NSFetchRequest<CDWine> = CDWine.fetchRequest()
+        fetchRequest.fetchLimit = 1
+        let objects = try context.fetch(fetchRequest)
+        return objects.count > 0 ? true : false
+    }
+
+    func populate() {
+        do {
+            if try haveData() {
+                return
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+        let wines: [Wine] = [
+            Wine(name: "Vino Juan de Jaunes", year: "2021", wineType: .red),
+            Wine(name: "Vino Viña Albali", year: "2022", wineType: .red),
+            Wine(name: "Vino Hécula", year: "2020", wineType: .red),
+            Wine(name: "Tinto Compta Ovelles", year: "2021", wineType: .red),
+            Wine(name: "Techno Hu-Hu", year: "2022", wineType: .red),
+            Wine(name: "Vino Terra Càlida", year: "2023", wineType: .red),
+            Wine(name: "Vino Elefant Blanc", year: "2020", wineType: .white),
+            Wine(name: "Vino Pata Negra", year: "2021", wineType: .red),
+            Wine(name: "Vino Protos", year: "2021", wineType: .red),
+            Wine(name: "Competa Ovelles", year: "2022", wineType: .white),
+            Wine(name: "Faustino Rivero", year: "2022", wineType: .red),
+            Wine(name: "Vino Pazo", year: "2023", wineType: .red),
+            Wine(name: "Vino Jardins", year: "2015", wineType: .white),
+            Wine(name: "Vino Marina Alta", year: "2018", wineType: .red),
+            Wine(name: "Cava Anna de Cordorniu", year: "2020", wineType: .cava),
+            Wine(name: "Champagne Moét Chandon", year: "2019", wineType: .cava),
+            Wine(name: "Cava brut reserva Alisina & Sarda", year: "2019", wineType: .cava),
+            Wine(name: "Cava Jume Serra", year: "2020", wineType: .cava)]
+        for wine in wines {
+            do {
+                try create(wine: wine)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
 }

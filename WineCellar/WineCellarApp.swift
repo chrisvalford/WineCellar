@@ -9,11 +9,14 @@ import SwiftUI
 
 @main
 struct WineCellarApp: App {
-//    let persistenceController = PersistenceController.shared
+    init() {
+        let model = WineModel()
+        model.populate()
+    }
+
     var body: some Scene {
         WindowGroup {
             MasterView()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

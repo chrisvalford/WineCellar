@@ -6,42 +6,14 @@
 //
 
 import SwiftUI
-import CoreData
 
 class AppState: ObservableObject {
-    let persistenceController = PersistenceController.shared
-//    @Environment(\.managedObjectContext) private var viewContext
-//
-//    @FetchRequest(
-//        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-//        animation: .default)
-//    private var items: FetchedResults<Item>
-
     @Published var showOnboarding = false
     @Published var selectedWines: [Wine] = []
-
     @Published var cartItems: [Wine] = []
 
-    // Replace with a fetch
-    var storedWines: [Wine] = [
-        Wine(name: "Vino Juan de Jaunes", year: "2021", wineType: .red),
-        Wine(name: "Vino Viña Albali", year: "2022", wineType: .red),
-        Wine(name: "Vino Hécula", year: "2020", wineType: .red),
-        Wine(name: "Tinto Compta Ovelles", year: "2021", wineType: .red),
-        Wine(name: "Techno Hu-Hu", year: "2022", wineType: .red),
-        Wine(name: "Vino Terra Càlida", year: "2023", wineType: .red),
-        Wine(name: "Vino Elefant Blanc", year: "2020", wineType: .white),
-        Wine(name: "Vino Pata Negra", year: "2021", wineType: .red),
-        Wine(name: "Vino Protos", year: "2021", wineType: .red),
-        Wine(name: "Competa Ovelles", year: "2022", wineType: .white),
-        Wine(name: "Faustino Rivero", year: "2022", wineType: .red),
-        Wine(name: "Vino Pazo", year: "2023", wineType: .red),
-        Wine(name: "Vino Jardins", year: "2015", wineType: .white),
-        Wine(name: "Vino Marina Alta", year: "2018", wineType: .red),
-        Wine(name: "Cava Anna de Cordorniu", year: "2020", wineType: .cava),
-        Wine(name: "Champagne Moét Chandon", year: "2019", wineType: .cava),
-        Wine(name: "Cava brut reserva Alisina & Sarda", year: "2019", wineType: .cava),
-        Wine(name: "Cava Jume Serra", year: "2020", wineType: .cava)]
+    var storedWines: [Wine] = []
+    var wineModel = WineModel()
 
     @Published var newWines: [NewWine] = [NewWine(name: "New Red"),
                                           NewWine(name: "New White"),
@@ -51,6 +23,11 @@ class AppState: ObservableObject {
     @Published var user = User(id: UUID(), name: "Bob")
 
     init() {
+        do {
+            storedWines = try wineModel.all()
+        } catch {
+            print(error.localizedDescription)
+        }
         selectedWines = storedWines
     }
 
