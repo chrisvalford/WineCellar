@@ -56,6 +56,11 @@ class AppState: ObservableObject {
         }
         return []
     }
+
+    var cartCount: Int {
+        let cartModel = CartModel()
+        return cartModel.count
+    }
 }
 
 

@@ -72,6 +72,18 @@ class CartModel: CartModelInterface {
         }
     }
 
+    var count: Int {
+        var count = 0
+        do {
+            if let cart = try fetch(isActive: true) {
+                count = cart.toPivots?.count ?? 0
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+        return count
+    }
+
     func all() throws -> [CartItem] {
         var items: [CartItem] = []
         // Do we have an active cart?

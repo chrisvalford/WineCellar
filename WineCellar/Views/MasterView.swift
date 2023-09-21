@@ -14,6 +14,7 @@ struct MasterView: View {
 
     @State var sortOrder: SortOrder = .none
     @State var query: [Int] = []
+    @State private var cartItemsCount = 1
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -48,16 +49,9 @@ struct MasterView: View {
                 }, label: {
                     Image(systemName: "eyeglasses")
                 })
-                Button(action: {}, label: {
-                    NavigationLink(value: Route.shoppingCart(appState.user)) {
-                        Image(systemName: "cart")
-                            .badge(8)
-                    }
-                })
-                .badge(8)
-//                NavigationLink(value: Route.shoppingCart(appState.user)) {
-//                    Image(systemName: "cart")
-//                }
+                NavigationLink(value: Route.shoppingCart(appState.user)) {
+                    ImageWithBadge(value: cartItemsCount)
+                }
             }
             .sheet(isPresented: $isShowingFilter) {
                 FilterView(sortOrder: $sortOrder, query: $query) {
@@ -86,6 +80,9 @@ struct MasterView: View {
                 }
                 path.append(.search(query))
             }
+             .onAppear {
+                 cartItemsCount = appState.cartCount
+             }
         }
         .environmentObject(appState)
     }

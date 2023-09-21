@@ -7,20 +7,33 @@
 
 import SwiftUI
 
-struct ImageWithBadge {
-    
+/*
+ * Display a badge if the value > 0
+ * Currently SwiftUI's .badge view modifier
+ * is only available for lists and tabs.
+ */
+struct ImageWithBadge: View {
+
+    var value: Int = 0
+    var image: Image = Image(systemName: "cart")
+
     var body: some View {
-        Image(systemName: "cart")
-//        Text("\(8)")
-//            .background(
-//                Circle()
-//                    .fill(Color.red)
-//                    .frame(width: 10, height: 10)
-//            )
-//            .offset(x: 5.0, y: 5.0)
+        ZStack {
+            image
+            if value > 0 {
+                Text(value < 10 ? "\(value)" : "9+")
+                    .font(.caption)
+                    .background(
+                        Circle()
+                            .fill(Color.red)
+                            .frame(width: 19, height: 19)
+                    )
+                    .offset(x: 8, y: -10)
+            }
+        }
     }
 }
 
-//#Preview {
-//    ImageWithBadge()
-//}
+#Preview {
+    ImageWithBadge()
+}
