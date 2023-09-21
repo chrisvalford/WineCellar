@@ -10,7 +10,6 @@ import SwiftUI
 class AppState: ObservableObject {
     @Published var showOnboarding = false
     @Published var selectedWines: [Wine] = []
-    @Published var cartItems: [Wine] = []
 
     var storedWines: [Wine] = []
     var wineModel = WineModel()
@@ -37,62 +36,31 @@ class AppState: ObservableObject {
         } catch {
             print(error.localizedDescription)
         }
-//        if query.isEmpty {
-//            results = storedWines
-//        } else {
-//            results = storedWines.filter({
-//                query.contains($0.wineType.rawValue)
-//            })
-//        }
-//        if sortedBy == .none {
-//            selectedWines = results
-//        } else if sortedBy == .name {
-//            selectedWines = results.sorted(by: { $0.name < $1.name })
-//        } else if sortedBy == .year {
-//            selectedWines = results.sorted(by: { $0.year < $1.year })
-//        }
+    }
+
+    func addToCart(wine: Wine) {
+        let cartModel = CartModel()
+        do {
+            try cartModel.create(wine: wine)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+
+    func cartItems() -> [CartItem] {
+        let cartModel = CartModel()
+        do {
+            return try cartModel.all()
+        } catch {
+            print(error.localizedDescription)
+        }
+        return []
     }
 }
 
 
 
 /*
- import CoreData
-
- struct ContentView: View {
-     @Environment(\.managedObjectContext) private var viewContext
-
-     @FetchRequest(
-         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-         animation: .default)
-     private var items: FetchedResults<Item>
-
-     var body: some View {
-         NavigationView {
-             List {
-                 ForEach(items) { item in
-                     NavigationLink {
-                         Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                     } label: {
-                         Text(item.timestamp!, formatter: itemFormatter)
-                     }
-                 }
-                 .onDelete(perform: deleteItems)
-             }
-             .toolbar {
-                 ToolbarItem(placement: .navigationBarTrailing) {
-                     EditButton()
-                 }
-                 ToolbarItem {
-                     Button(action: addItem) {
-                         Label("Add Item", systemImage: "plus")
-                     }
-                 }
-             }
-             Text("Select an item")
-         }
-     }
-
      private func addItem() {
          withAnimation {
              let newItem = Item(context: viewContext)
@@ -124,18 +92,4 @@ class AppState: ObservableObject {
          }
      }
  }
-
- private let itemFormatter: DateFormatter = {
-     let formatter = DateFormatter()
-     formatter.dateStyle = .short
-     formatter.timeStyle = .medium
-     return formatter
- }()
-
- struct ContentView_Previews: PreviewProvider {
-     static var previews: some View {
-         ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-     }
- }
-
  */

@@ -48,9 +48,16 @@ struct MasterView: View {
                 }, label: {
                     Image(systemName: "eyeglasses")
                 })
-                NavigationLink(value: Route.shoppingCart(appState.user)) {
-                    Image(systemName: "cart")
-                }
+                Button(action: {}, label: {
+                    NavigationLink(value: Route.shoppingCart(appState.user)) {
+                        Image(systemName: "cart")
+                            .badge(8)
+                    }
+                })
+                .badge(8)
+//                NavigationLink(value: Route.shoppingCart(appState.user)) {
+//                    Image(systemName: "cart")
+//                }
             }
             .sheet(isPresented: $isShowingFilter) {
                 FilterView(sortOrder: $sortOrder, query: $query) {

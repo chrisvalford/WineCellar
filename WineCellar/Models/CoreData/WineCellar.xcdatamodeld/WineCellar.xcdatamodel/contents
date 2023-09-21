@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22G5072a" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="22G5072a" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CDCart" representedClassName="CDCart" syncable="YES" codeGenerationType="class">
+        <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="isActive" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <relationship name="toPivots" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDCartWinePivot" inverseName="toCart" inverseEntity="CDCartWinePivot"/>
+    </entity>
+    <entity name="CDCartWinePivot" representedClassName="CDCartWinePivot" syncable="YES" codeGenerationType="class">
+        <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="isActive" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="quantity" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="toCart" maxCount="1" deletionRule="Nullify" destinationEntity="CDCart" inverseName="toPivots" inverseEntity="CDCart"/>
+        <relationship name="toWine" maxCount="1" deletionRule="Nullify" destinationEntity="CDWine" inverseName="toPivot" inverseEntity="CDWine"/>
+    </entity>
+    <entity name="CDUser" representedClassName="CDUser" syncable="YES" codeGenerationType="class">
+        <attribute name="email" optional="YES" attributeType="String"/>
+        <attribute name="familyName" optional="YES" attributeType="String"/>
+        <attribute name="givenName" optional="YES" attributeType="String"/>
+        <attribute name="joined" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
     <entity name="CDWine" representedClassName="CDWine" syncable="YES" codeGenerationType="class">
         <attribute name="added" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="barcode" optional="YES" attributeType="String"/>
@@ -8,8 +26,6 @@
         <attribute name="producer" optional="YES" attributeType="String"/>
         <attribute name="wineType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="year" optional="YES" attributeType="String"/>
-    </entity>
-    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
-        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="toPivot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDCartWinePivot" inverseName="toWine" inverseEntity="CDCartWinePivot"/>
     </entity>
 </model>

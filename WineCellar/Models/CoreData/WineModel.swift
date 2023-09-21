@@ -8,21 +8,6 @@
 import Foundation
 import CoreData
 
-enum ModelException: Error {
-    case createFailed
-    case deleteFailed
-    case updateFailed
-}
-
-protocol WineModelInterface {
-    func create(wine: Wine) throws
-    func delete(wine: Wine) throws
-    func fetch(wine: Wine) throws -> Wine?
-    func all() throws -> [Wine]
-    func update(wine: Wine) throws
-    func fetch(query: [Int], sortBy: SortOrder) throws -> [Wine]
-}
-
 class WineModel: WineModelInterface {
 
     var context: NSManagedObjectContext {
@@ -102,7 +87,7 @@ class WineModel: WineModelInterface {
         }
     }
 
-    private func fetch(wine: Wine) throws -> CDWine? {
+    func fetch(wine: Wine) throws -> CDWine? {
         let fetchRequest: NSFetchRequest<CDWine> = CDWine.fetchRequest()
         fetchRequest.fetchLimit = 1
         fetchRequest.predicate = NSPredicate(format: "name == %@", wine.name)
@@ -137,9 +122,9 @@ class WineModel: WineModelInterface {
             Wine(name: "Vino Protos", year: "2021", wineType: .red),
             Wine(name: "Competa Ovelles", year: "2022", wineType: .white),
             Wine(name: "Faustino Rivero", year: "2022", wineType: .red),
-            Wine(name: "Vino Pazo", year: "2023", wineType: .red),
+            Wine(name: "Vino Pazo", year: "2023", wineType: .rose),
             Wine(name: "Vino Jardins", year: "2015", wineType: .white),
-            Wine(name: "Vino Marina Alta", year: "2018", wineType: .red),
+            Wine(name: "Vino Marina Alta", year: "2018", wineType: .rose),
             Wine(name: "Cava Anna de Cordorniu", year: "2020", wineType: .cava),
             Wine(name: "Champagne Moét Chandon", year: "2019", wineType: .cava),
             Wine(name: "Cava brut reserva Alisina & Sarda", year: "2019", wineType: .cava),

@@ -20,7 +20,7 @@ struct WineDetail: View {
                 Text(wine.year)
             }
             Button(action: {
-                appState.cartItems.append(wine)
+                appState.addToCart(wine: wine)
             }) {
                 Text("Add to cart")
             }

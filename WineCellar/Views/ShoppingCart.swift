@@ -16,8 +16,8 @@ struct ShoppingCart: View {
     var body: some View {
         VStack {
             Text(user.name)
-            List(appState.cartItems) { item in
-                Text(item.name)
+            List(appState.cartItems()) { item in
+                ShoppingCartRow(item: item)
             }
         }
     }
