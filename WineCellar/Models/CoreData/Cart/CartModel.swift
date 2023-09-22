@@ -18,6 +18,13 @@ class CartModel: CartModelInterface {
     }
 
     /*
+     * Create a shopping cart
+     */
+    func create() throws {
+
+    }
+
+    /*
      * Add a wine to the cart via a pivot which contains the quantity value.
      * The wine will already exist.
      */
@@ -85,6 +92,17 @@ class CartModel: CartModelInterface {
             print(error.localizedDescription)
         }
         return count
+    }
+
+    var cartCount: Int {
+        var cartCount = 0
+        do {
+            let fetchRequest: NSFetchRequest<CDCart> = CDCart.fetchRequest()
+            cartCount = try context.count(for: fetchRequest)
+        } catch {
+            print(error.localizedDescription)
+        }
+        return cartCount
     }
 
     func all() throws -> [CartItem] {

@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct ShoppingCart: View {
-
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var appState: AppState
+    @State private var isShowingInfo = false
+
+    @State private var cartCount = 0
 
     let user: User
 
@@ -21,6 +24,22 @@ struct ShoppingCart: View {
                     appState.updateCartItem(item, withValue: value)
                 })
             }
+            .listStyle(.plain)
+        }
+        .sheet(isPresented: $isShowingInfo) {
+            ShoppingCartInfo()
+        }
+        .toolbar {
+            Button(action: {
+                isShowingInfo = true
+            }, label: {
+                Image(systemName: "info.circle")
+            })
+        }
+        .navigationTitle(cartCount < 2 ? "Shopping Cart" : "Shopping Carts")
+        .onAppear {
+            let cartModel = CartModel()
+            cartCount = cartModel.cartCount
         }
     }
 }
