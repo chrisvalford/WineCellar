@@ -7,6 +7,7 @@
     </entity>
     <entity name="CDCartWinePivot" representedClassName="CDCartWinePivot" syncable="YES" codeGenerationType="class">
         <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isActive" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="quantity" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="toCart" maxCount="1" deletionRule="Nullify" destinationEntity="CDCart" inverseName="toPivots" inverseEntity="CDCart"/>

@@ -17,7 +17,9 @@ struct ShoppingCart: View {
         VStack {
             Text(user.name)
             List(appState.cartItems()) { item in
-                ShoppingCartRow(item: item)
+                ShoppingCartRow(item: item, saveAction: { value in
+                    appState.updateCartItem(item, withValue: value)
+                })
             }
         }
     }
@@ -29,3 +31,4 @@ struct ShoppingCart_Previews: PreviewProvider {
         ShoppingCart(user: user)
     }
 }
+
