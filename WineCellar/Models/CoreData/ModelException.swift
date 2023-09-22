@@ -11,4 +11,5 @@ enum ModelException: Error {
     case createFailed
     case deleteFailed
     case updateFailed
+    case noActiveCart
 }

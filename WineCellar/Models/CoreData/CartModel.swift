@@ -50,7 +50,10 @@ class CartModel: CartModelInterface {
                 foundPivot?.quantity += 1
             } else {
                 foundPivot = CDCartWinePivot(context: context)
+                foundPivot?.identifier = UUID()
                 foundPivot?.quantity = 1
+                foundPivot?.created = Date()
+                // Relations
                 foundPivot?.toCart = activeCart
                 foundPivot?.toWine = wine
                 activeCart.toPivots?.adding(foundPivot!)
@@ -98,10 +101,11 @@ class CartModel: CartModelInterface {
         if let pivots = activeCart.toPivots as? Set<CDCartWinePivot> {
             for pivot in pivots {
                 let cdWine = pivot.toWine
-                items.append(CartItem(name: cdWine?.name ?? "",
-                                  year: cdWine?.year ?? "",
-                                  wineType: WineType(rawValue: Int(cdWine!.wineType)) ?? .unknown,
-                             quantity: Int(pivot.quantity)))
+                items.append(CartItem(identifier: pivot.identifier!,
+                                      name: cdWine?.name ?? "",
+                                      year: cdWine?.year ?? "",
+                                      wineType: WineType(rawValue: Int(cdWine!.wineType)) ?? .unknown,
+                                      quantity: Int(pivot.quantity)))
             }
         }
         return items
@@ -117,6 +121,40 @@ class CartModel: CartModelInterface {
             foundWine.wineType = Int16(wine.wineType.rawValue)
         } catch {
             throw ModelException.updateFailed
+        }
+    }
+
+    func updateCartItem(_ cartItem: CartItem, withValue: Int) throws {
+        // Do we have an active cart?
+        var activeCart: CDCart
+        do {
+            if let cart = try fetch(isActive: true) {
+                activeCart = cart
+            } else {
+                throw ModelException.noActiveCart
+            }
+            // Is there a pivot?
+            var foundPivot: CDCartWinePivot?
+            if let pivots = activeCart.toPivots as? Set<CDCartWinePivot> {
+                for pivot in pivots {
+                    if pivot.identifier == cartItem.id {
+                        foundPivot = pivot
+                        break
+                    }
+                }
+            }
+            if foundPivot != nil {
+                foundPivot?.quantity = Int16(withValue)
+                if foundPivot?.quantity ?? -1 < 0 {
+                    foundPivot?.quantity = 0
+                }
+
+            } else {
+                throw ModelException.updateFailed
+            }
+            try context.save()
+        } catch {
+            print(error.localizedDescription)
         }
     }
 
