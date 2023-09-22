@@ -144,11 +144,15 @@ class CartModel: CartModelInterface {
                 }
             }
             if foundPivot != nil {
+                // If the new value is 0, delete this pivot
+                if withValue == 0 {
+                    context.delete(foundPivot!)
+                }
+                // Otherwise
                 foundPivot?.quantity = Int16(withValue)
                 if foundPivot?.quantity ?? -1 < 0 {
                     foundPivot?.quantity = 0
                 }
-
             } else {
                 throw ModelException.updateFailed
             }
