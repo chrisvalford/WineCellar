@@ -56,6 +56,20 @@ class AppState: ObservableObject {
         }
         return []
     }
+
+    var cartCount: Int {
+        let cartModel = CartModel()
+        return cartModel.count
+    }
+
+    func updateCartItem(_ cartItem: CartItem, withValue: Int) {
+        let cartModel = CartModel()
+        do {
+            try cartModel.updateCartItem(cartItem, withValue: withValue)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }
 
 

@@ -8,7 +8,8 @@
 import Foundation
 
 struct CartItem: Identifiable {
-    var id: String { return name }
+    var id: UUID { identifier }
+    let identifier: UUID
     let name: String
     var year: String
     var wineType: WineType
